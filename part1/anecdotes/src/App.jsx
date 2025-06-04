@@ -32,7 +32,7 @@ const App = () => {
     <>
       <Button
         onClick={randomizer(anecdotes, setSelected)}
-        text='random'
+        text='next anecdote'
       ></Button>
       <div>{anecdotes[selected]}</div>
     </>

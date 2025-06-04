@@ -41,8 +41,6 @@ const App = () => {
   const [bad, setBad] = useState(0);
 
   const setRating = (value, setValue) => () => setValue(value + 1);
-  // const calculateAverage = () => (good * 1 + bad * -1) / (good + neutral + bad);
-  // const calculatePositive = () => (good / (good + bad + neutral)) * 100 + '%';
 
   return (
     <>
@@ -52,28 +50,6 @@ const App = () => {
       <Button onClick={setRating(bad, setBad)} text='bad'></Button>
       <Heading text='statistics'></Heading>
       <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
-      {/* <div>
-        {good + bad + neutral === 0 ? (
-          'No feedback given'
-        ) : (
-          <table>
-            <tbody>
-              <Statistics name='good' value={good}></Statistics>
-              <Statistics name='neutral' value={neutral}></Statistics>
-              <Statistics name='bad' value={bad}></Statistics>
-              <Statistics name='all' value={good + neutral + bad}></Statistics>
-              <Statistics
-                name='average'
-                value={calculateAverage()}
-              ></Statistics>
-              <Statistics
-                name='positive'
-                value={calculatePositive()}
-              ></Statistics>
-            </tbody>
-          </table>
-        )}
-      </div> */}
     </>
   );
 };
