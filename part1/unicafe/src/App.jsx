@@ -29,12 +29,23 @@ const App = () => {
       <Button onClick={setRating(neutral, setNeutral)} text='neutral'></Button>
       <Button onClick={setRating(bad, setBad)} text='bad'></Button>
       <Heading text='statistics'></Heading>
-      <Statistics name='good' value={good}></Statistics>
-      <Statistics name='neutral' value={neutral}></Statistics>
-      <Statistics name='bad' value={bad}></Statistics>
-      <Statistics name='all' value={good + neutral + bad}></Statistics>
-      <Statistics name='average' value={calculateAverage()}></Statistics>
-      <Statistics name='positive' value={calculatePositive()}></Statistics>
+      <div>
+        {good + bad + neutral === 0 ? (
+          'No feedback given'
+        ) : (
+          <>
+            <Statistics name='good' value={good}></Statistics>
+            <Statistics name='neutral' value={neutral}></Statistics>
+            <Statistics name='bad' value={bad}></Statistics>
+            <Statistics name='all' value={good + neutral + bad}></Statistics>
+            <Statistics name='average' value={calculateAverage()}></Statistics>
+            <Statistics
+              name='positive'
+              value={calculatePositive()}
+            ></Statistics>
+          </>
+        )}
+      </div>
     </>
   );
 };
