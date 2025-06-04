@@ -9,15 +9,19 @@ const randomizer = (anecdotes, setSelected) => () => {
   return randomNum;
 };
 
-const addVote = (selected, votes, setVotes) => () => {
+const addVote = (selected, votes, setVotes, setHighest) => () => {
   const newVotes = [...votes];
   newVotes[selected]++;
+  const mostVoted = newVotes.indexOf(Math.max(...newVotes));
   setVotes(newVotes);
+  setHighest(mostVoted);
 };
 
-const Button = ({ onClick, text }) => {
-  return <button onClick={onClick}>{text}</button>;
-};
+const Heading = ({ text }) => <h1>{text}</h1>;
+
+const Content = ({ data }) => <p>{data}</p>;
+
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 const App = () => {
   const anecdotes = [
@@ -33,16 +37,28 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
+  const [highest, setHighest] = useState(0);
 
   return (
     <>
+      <Heading text='Anecdote of the day'></Heading>
+      <div>{anecdotes[selected]}</div>
+      <div>has {votes[selected]} votes</div>
+      <Button
+        onClick={addVote(selected, votes, setVotes, setHighest)}
+        text='vote'
+      ></Button>
       <Button
         onClick={randomizer(anecdotes, setSelected)}
         text='next anecdote'
       ></Button>
-      <Button onClick={addVote(selected, votes, setVotes)} text='vote'></Button>
-      <div>{anecdotes[selected]}</div>
-      <div>has {votes[selected]} votes</div>
+      {votes[highest] !== 0 ? (
+        <>
+          <Heading text='Anecdote with most votes'></Heading>
+          <Content data={anecdotes[highest]}></Content>
+          <div>has {votes[highest]} votes</div>
+        </>
+      ) : null}
     </>
   );
 };
