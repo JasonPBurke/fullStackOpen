@@ -9,7 +9,12 @@ const randomizer = (anecdotes, setSelected) => () => {
   return randomNum;
 };
 
-//! make this button clean and general use
+const addVote = (selected, votes, setVotes) => () => {
+  const newVotes = [...votes];
+  newVotes[selected]++;
+  setVotes(newVotes);
+};
+
 const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
 };
@@ -27,14 +32,17 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-  randomizer(anecdotes, setSelected);
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
+
   return (
     <>
       <Button
         onClick={randomizer(anecdotes, setSelected)}
         text='next anecdote'
       ></Button>
+      <Button onClick={addVote(selected, votes, setVotes)} text='vote'></Button>
       <div>{anecdotes[selected]}</div>
+      <div>has {votes[selected]} votes</div>
     </>
   );
 };
