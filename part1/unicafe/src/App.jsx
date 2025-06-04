@@ -4,12 +4,33 @@ const Heading = ({ text }) => <h1>{text}</h1>;
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
-const Statistics = ({ name, value }) => {
+const StatisticLine = ({ name, value }) => {
   return (
     <tr>
       <td>{name}</td>
       <td>{value}</td>
     </tr>
+  );
+};
+
+const Statistics = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad;
+  const average = (good * 1 + bad * -1) / total;
+  const positive = (good / total) * 100 + '%';
+  if (total === 0) {
+    return <p>No feedback given</p>;
+  }
+  return (
+    <table>
+      <tbody>
+        <StatisticLine name='good' value={good} />
+        <StatisticLine name='neutral' value={neutral} />
+        <StatisticLine name='bad' value={bad} />
+        <StatisticLine name='all' value={total} />
+        <StatisticLine name='average' value={average} />
+        <StatisticLine name='positive' value={positive} />
+      </tbody>
+    </table>
   );
 };
 
@@ -20,8 +41,8 @@ const App = () => {
   const [bad, setBad] = useState(0);
 
   const setRating = (value, setValue) => () => setValue(value + 1);
-  const calculateAverage = () => (good * 1 + bad * -1) / (good + neutral + bad);
-  const calculatePositive = () => (good / (good + bad + neutral)) * 100 + '%';
+  // const calculateAverage = () => (good * 1 + bad * -1) / (good + neutral + bad);
+  // const calculatePositive = () => (good / (good + bad + neutral)) * 100 + '%';
 
   return (
     <>
@@ -30,7 +51,8 @@ const App = () => {
       <Button onClick={setRating(neutral, setNeutral)} text='neutral'></Button>
       <Button onClick={setRating(bad, setBad)} text='bad'></Button>
       <Heading text='statistics'></Heading>
-      <div>
+      <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
+      {/* <div>
         {good + bad + neutral === 0 ? (
           'No feedback given'
         ) : (
@@ -51,7 +73,7 @@ const App = () => {
             </tbody>
           </table>
         )}
-      </div>
+      </div> */}
     </>
   );
 };
