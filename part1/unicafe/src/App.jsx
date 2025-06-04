@@ -6,9 +6,10 @@ const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 const Statistics = ({ name, value }) => {
   return (
-    <div>
-      {name} {value}
-    </div>
+    <tr>
+      <td>{name}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -33,17 +34,22 @@ const App = () => {
         {good + bad + neutral === 0 ? (
           'No feedback given'
         ) : (
-          <>
-            <Statistics name='good' value={good}></Statistics>
-            <Statistics name='neutral' value={neutral}></Statistics>
-            <Statistics name='bad' value={bad}></Statistics>
-            <Statistics name='all' value={good + neutral + bad}></Statistics>
-            <Statistics name='average' value={calculateAverage()}></Statistics>
-            <Statistics
-              name='positive'
-              value={calculatePositive()}
-            ></Statistics>
-          </>
+          <table>
+            <tbody>
+              <Statistics name='good' value={good}></Statistics>
+              <Statistics name='neutral' value={neutral}></Statistics>
+              <Statistics name='bad' value={bad}></Statistics>
+              <Statistics name='all' value={good + neutral + bad}></Statistics>
+              <Statistics
+                name='average'
+                value={calculateAverage()}
+              ></Statistics>
+              <Statistics
+                name='positive'
+                value={calculatePositive()}
+              ></Statistics>
+            </tbody>
+          </table>
         )}
       </div>
     </>
