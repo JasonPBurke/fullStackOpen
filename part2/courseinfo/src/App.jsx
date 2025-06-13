@@ -46,7 +46,7 @@ const App = () => {
     },
   ];
 
-  return <Course key={course.id} courses={course} />;
+  return <Course courses={course} />;
 };
 
 export default App;
