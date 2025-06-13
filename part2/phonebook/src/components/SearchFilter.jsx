@@ -1,15 +1,14 @@
 const SearchFilter = ({ persons, setFilteredPersons, filter, setFilter }) => {
-  const checkFilter = (updatedFilter, persons) => {
-    const filteredArray = persons.filter((person) =>
-      person.name.toLowerCase().includes(updatedFilter.toLowerCase())
-    );
-    setFilteredPersons(filteredArray);
-  };
-
   const handleFilter = (e) => {
-    if (e.target.value === '') setFilteredPersons([]);
-    setFilter(e.target.value);
-    checkFilter(e.target.value, persons);
+    const filterValue = e.target.value;
+    setFilter(filterValue);
+    if (filterValue === '') setFilteredPersons([]);
+
+    const filteredSet = persons.filter((person) => {
+      if (filterValue === '') return;
+      return person.name.toLowerCase().includes(filterValue.toLowerCase());
+    });
+    setFilteredPersons(filteredSet);
   };
 
   return (
