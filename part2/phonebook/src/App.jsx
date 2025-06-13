@@ -51,7 +51,7 @@ const App = () => {
         filter={filter}
         setFilter={setFilter}
       ></SearchFilter>
-      <h2>add a new</h2>
+      <h3>add a new</h3>
       <Form
         newName={newName}
         setNewName={setNewName}
@@ -60,7 +60,7 @@ const App = () => {
         addPersons={addPersons}
         handleChange={handleChange}
       ></Form>
-      <h2>Numbers</h2>
+      <h3>Numbers</h3>
       {filter === '' ? (
         <List persons={persons} />
       ) : (
