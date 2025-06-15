@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import numbers from './services/phoneNumbers.js';
 import Form from './components/Form';
 import List from './components/List';
 import SearchFilter from './components/SearchFilter';
@@ -12,8 +12,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((response) => {
-      setPersons(response.data);
+    numbers.getAll().then((initialNumbers) => {
+      setPersons(initialNumbers);
     });
   }, []);
 
@@ -31,13 +31,11 @@ const App = () => {
     });
 
     rejectName === false
-      ? setPersons(
-          persons.concat({
-            name: newName,
-            number: newNumber,
-            id: persons.length + 1,
+      ? numbers
+          .create({ name: newName, number: newNumber })
+          .then((newObject) => {
+            setPersons(persons.concat(newObject));
           })
-        )
       : alert(`${newName} is already added to phonebook`);
 
     setNewName('');
