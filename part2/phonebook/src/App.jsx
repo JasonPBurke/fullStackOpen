@@ -33,7 +33,7 @@ const App = () => {
 
   const updatePerson = (person) => {
     numbers
-      .update(person[0].id, { ...person[0], number: newNumber })
+      .update(person.id, { ...person, number: newNumber })
       .then((updated) => {
         const filteredPersons = persons.filter((object) => {
           return object.id !== updated.id;
@@ -60,7 +60,7 @@ const App = () => {
       : window.confirm(
           `${newName} is already added to phonebook, replace the old number with a new one?`
         )
-      ? updatePerson(persons.filter((person) => person.name === newName))
+      ? updatePerson(...persons.filter((person) => person.name === newName))
       : null;
 
     setNewName('');
