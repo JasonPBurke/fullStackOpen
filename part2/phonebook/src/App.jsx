@@ -32,16 +32,12 @@ const App = () => {
   };
 
   const updatePerson = (person) => {
-    console.log('person', person);
     numbers
       .update(person[0].id, { ...person[0], number: newNumber })
       .then((updated) => {
         const filteredPersons = persons.filter((object) => {
           return object.id !== updated.id;
-          // console.log('object.id', object.id);
-          // console.log('updated.id', updated.id);
         });
-        console.log('filteredPersons', filteredPersons);
         setPersons(filteredPersons.concat(updated));
       });
   };
