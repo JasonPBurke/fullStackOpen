@@ -13,10 +13,10 @@ const create = (newObject) => {
 };
 
 const update = (id, newObject) => {
-  console.log(newObject);
+  console.log('newObject', newObject);
   const request = axios.put(`${baseUrl}/${id}`, newObject);
   console.log('request', request);
-  // return request.then((response) => response.data);
+  return request.then((response) => response.data);
 };
 
 const remove = (id) => {

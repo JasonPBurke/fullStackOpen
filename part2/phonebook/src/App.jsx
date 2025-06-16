@@ -31,11 +31,26 @@ const App = () => {
       : null;
   };
 
+  const updatePerson = (person) => {
+    console.log('person', person);
+    numbers
+      .update(person[0].id, { ...person[0], number: newNumber })
+      .then((updated) => {
+        const filteredPersons = persons.filter((object) => {
+          return object.id !== updated.id;
+          // console.log('object.id', object.id);
+          // console.log('updated.id', updated.id);
+        });
+        console.log('filteredPersons', filteredPersons);
+        setPersons(filteredPersons.concat(updated));
+      });
+  };
+
   const addPersons = (e) => {
     let rejectName = false;
     e.preventDefault();
-    persons.forEach((element) => {
-      if (element.name === newName) {
+    persons.forEach((object) => {
+      if (object.name === newName) {
         rejectName = true;
       }
     });
@@ -46,7 +61,11 @@ const App = () => {
           .then((newObject) => {
             setPersons(persons.concat(newObject));
           })
-      : alert(`${newName} is already added to phonebook`);
+      : window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`
+        )
+      ? updatePerson(persons.filter((person) => person.name === newName))
+      : null;
 
     setNewName('');
     setNewNumber('');
