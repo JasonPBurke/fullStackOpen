@@ -21,6 +21,16 @@ const App = () => {
     setNewValue(e.target.value);
   };
 
+  const handleRemove = (person) => () => {
+    window.confirm(`Delete ${person.name}?`)
+      ? numbers.remove(person.id).then((deletedPerson) => {
+          setPersons(
+            persons.filter((person) => deletedPerson.id !== person.id)
+          );
+        })
+      : null;
+  };
+
   const addPersons = (e) => {
     let rejectName = false;
     e.preventDefault();
@@ -62,9 +72,9 @@ const App = () => {
       ></Form>
       <h3>Numbers</h3>
       {filter === '' ? (
-        <List persons={persons} />
+        <List persons={persons} handleRemove={handleRemove} />
       ) : (
-        <List persons={filteredPersons} />
+        <List persons={filteredPersons} handleRemove={handleRemove} />
       )}
     </div>
   );
